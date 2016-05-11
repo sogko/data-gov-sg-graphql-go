@@ -10,7 +10,6 @@ import (
 
 // Environment
 var EnvironmentObject *graphql.Object
-var regionWeatherForecastObject *graphql.Object
 
 // Two Hour Weather Forecast
 var twoHourWeatherForecastResultObject *graphql.Object
@@ -18,6 +17,7 @@ var twoHourWeatherForecastResultItemObject *graphql.Object
 var twoHourWeatherForecastObject *graphql.Object
 
 // Twenty Four Hour Weather Forecast
+var regionWeatherForecastObject *graphql.Object
 var twentyFourHourWeatherForecastResultObject *graphql.Object
 var twentyFourHourWeatherForecastResultItemObject *graphql.Object
 var twentyFourHourWeatherForecastObject *graphql.Object
@@ -28,35 +28,14 @@ var fourDayWeatherForecastResultObject *graphql.Object
 var fourDayWeatherForecastResultItemObject *graphql.Object
 var fourDayWeatherForecastObject *graphql.Object
 
-func getHTTPClient(p graphql.ResolveParams) *datagovsg.Client {
-	if c, ok := p.Context.Value("client").(*datagovsg.Client); ok {
-		return c
-	}
-	return datagovsg.NewClient("")
-}
+// PM25 Readings
+var pm25ReadingsResultObject *graphql.Object
+var pm25ReadingsResultItemObject *graphql.Object
+var pm25ReadingIntervalsObject *graphql.Object
+var pm25ReadingRegionsObject *graphql.Object
+var pm25ReadingObject *graphql.Object
 
 func init() {
-
-	regionWeatherForecastObject = graphql.NewObject(graphql.ObjectConfig{
-		Name: "RegionWeatherForecast",
-		Fields: graphql.Fields{
-			"south": &graphql.Field{
-				Type: graphql.NewNonNull(graphql.String),
-			},
-			"north": &graphql.Field{
-				Type: graphql.NewNonNull(graphql.String),
-			},
-			"east": &graphql.Field{
-				Type: graphql.NewNonNull(graphql.String),
-			},
-			"central": &graphql.Field{
-				Type: graphql.NewNonNull(graphql.String),
-			},
-			"west": &graphql.Field{
-				Type: graphql.NewNonNull(graphql.String),
-			},
-		},
-	})
 
 	// Two Hour Weather Forecast
 	twoHourWeatherForecastObject = graphql.NewObject(graphql.ObjectConfig{
@@ -100,6 +79,26 @@ func init() {
 	})
 
 	// Twenty Four Hour Weather Forecast
+	regionWeatherForecastObject = graphql.NewObject(graphql.ObjectConfig{
+		Name: "RegionWeatherForecast",
+		Fields: graphql.Fields{
+			"south": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+			"north": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+			"east": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+			"central": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+			"west": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+		},
+	})
 	generalTwentyFourHourWeatherForecastObject = graphql.NewObject(graphql.ObjectConfig{
 		Name: "GeneralTwentyFourHourWeatherForecast",
 		Fields: graphql.Fields{
@@ -210,6 +209,73 @@ func init() {
 		},
 	})
 
+	// PM25 Readings
+
+	pm25ReadingObject = graphql.NewObject(graphql.ObjectConfig{
+		Name: "PM25Reading",
+		Fields: graphql.Fields{
+			"value": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.Int),
+			},
+			"area": &graphql.Field{
+				Type: graphql.NewNonNull(common.AreaObject),
+			},
+		},
+	})
+	pm25ReadingRegionsObject = graphql.NewObject(graphql.ObjectConfig{
+		Name: "PM25ReadingRegions",
+		Fields: graphql.Fields{
+			"south": &graphql.Field{
+				Type: graphql.NewNonNull(pm25ReadingObject),
+			},
+			"north": &graphql.Field{
+				Type: graphql.NewNonNull(pm25ReadingObject),
+			},
+			"east": &graphql.Field{
+				Type: graphql.NewNonNull(pm25ReadingObject),
+			},
+			"central": &graphql.Field{
+				Type: graphql.NewNonNull(pm25ReadingObject),
+			},
+			"west": &graphql.Field{
+				Type: graphql.NewNonNull(pm25ReadingObject),
+			},
+		},
+	})
+	pm25ReadingIntervalsObject = graphql.NewObject(graphql.ObjectConfig{
+		Name: "PM25ReadingIntervals",
+		Fields: graphql.Fields{
+			"pm25_one_hourly": &graphql.Field{
+				Type: graphql.NewNonNull(pm25ReadingRegionsObject),
+			},
+		},
+	})
+	pm25ReadingsResultItemObject = graphql.NewObject(graphql.ObjectConfig{
+		Name: "PM25ReadingsResultItem",
+		Fields: graphql.Fields{
+			"update_timestamp": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+			"timestamp": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+			"readings": &graphql.Field{
+				Type: graphql.NewNonNull(pm25ReadingIntervalsObject),
+			},
+		},
+	})
+	pm25ReadingsResultObject = graphql.NewObject(graphql.ObjectConfig{
+		Name: "PM25ReadingsResult",
+		Fields: graphql.Fields{
+			"api_info": &graphql.Field{
+				Type: graphql.NewNonNull(common.APIInfoStatusObject),
+			},
+			"items": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.NewList(graphql.NewNonNull(pm25ReadingsResultItemObject))),
+			},
+		},
+	})
+
 	// Environment
 	EnvironmentObject = graphql.NewObject(graphql.ObjectConfig{
 		Name:        "Environment",
@@ -228,7 +294,7 @@ func init() {
 				},
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 
-					c := getHTTPClient(p)
+					c := datagovsg.GetClientFromContext(p.Context)
 
 					dateTime, _ := p.Args["date_time"].(string)
 					date, _ := p.Args["date"].(string)
@@ -263,7 +329,7 @@ func init() {
 				},
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 
-					c := getHTTPClient(p)
+					c := datagovsg.GetClientFromContext(p.Context)
 
 					dateTime, _ := p.Args["date_time"].(string)
 					date, _ := p.Args["date"].(string)
@@ -298,7 +364,7 @@ func init() {
 				},
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 
-					c := getHTTPClient(p)
+					c := datagovsg.GetClientFromContext(p.Context)
 
 					dateTime, _ := p.Args["date_time"].(string)
 					date, _ := p.Args["date"].(string)
@@ -317,6 +383,41 @@ func init() {
 						return nil, res.Err
 					}
 					resp, _ := res.Body.(*datagovsg.FourDayWeatherForecastResponse)
+					return resp.ToGraphQL(), nil
+				},
+			},
+			"pm25": &graphql.Field{
+				Name: "PM25 Readings",
+				Type: graphql.NewNonNull(pm25ReadingsResultObject),
+				Args: graphql.FieldConfigArgument{
+					"date_time": &graphql.ArgumentConfig{
+						Type: common.DateTimeStringScalar,
+					},
+					"date": &graphql.ArgumentConfig{
+						Type: common.DateStringScalar,
+					},
+				},
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+
+					c := datagovsg.GetClientFromContext(p.Context)
+
+					dateTime, _ := p.Args["date_time"].(string)
+					date, _ := p.Args["date"].(string)
+
+					v, _ := query.Values(datagovsg.PM25ReadingsOptions{
+						DateTime: dateTime,
+						Date:     date,
+					})
+
+					ch := c.Get(
+						fmt.Sprintf("https://api.data.gov.sg/v1/environment/pm25?%v", v.Encode()),
+						&datagovsg.PM25ReadingsResponse{},
+					)
+					res := <-ch
+					if res.Err != nil {
+						return nil, res.Err
+					}
+					resp, _ := res.Body.(*datagovsg.PM25ReadingsResponse)
 					return resp.ToGraphQL(), nil
 				},
 			},

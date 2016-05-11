@@ -2,6 +2,7 @@ package datagovsg
 
 import (
 	"encoding/json"
+	"golang.org/x/net/context"
 	"net/http"
 	"sync"
 )
@@ -27,6 +28,13 @@ func NewClient(apiKey string) *Client {
 		listeners:    map[string][]chan ClientResult{},
 		listenerLock: sync.RWMutex{},
 	}
+}
+
+func GetClientFromContext(ctx context.Context) *Client {
+	if c, ok := ctx.Value("client").(*Client); ok {
+		return c
+	}
+	return NewClient("")
 }
 
 // broadcastOnce Broadcasts to all listeners and close channel immediately. No new listeners can register at this time.

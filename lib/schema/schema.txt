@@ -95,7 +95,7 @@ type FourDayWeatherForecast {
 	temperature: Temperature!
 }
 
-# PM25Readings
+# PM25 Readings
 
 type PM25ReadingsResult {
 	api_info: APIInfoStatus!
