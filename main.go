@@ -9,27 +9,34 @@ import (
 	"github.com/sogko/data-gov-sg-graphql-go/lib/schema"
 	"github.com/unrolled/render"
 	"golang.org/x/net/context"
+	"log"
 	"net/http"
 	"os"
-	"log"
 )
 
 var R *render.Render
 var API_KEY string
 
+var IP string
 var PORT string
 
 func init() {
 
 	// Determine which port to server app from
-	PORT := os.Getenv("OPENSHIFT_GO_PORT")
+	IP = os.Getenv("OPENSHIFT_GO_IP")
+	if PORT == "" {
+		PORT = os.Getenv("DATAGOVSG_IP")
+	}
+	log.Println("IP", IP)
+
+	// Determine which port to server app from
+	PORT = os.Getenv("OPENSHIFT_GO_PORT")
 	if PORT == "" {
 		PORT = os.Getenv("DATAGOVSG_PORT")
 	}
 	if PORT == "" {
 		PORT = "3000"
 	}
-	log.Println("PORT", PORT)
 
 	// Set data.gov.sg API key
 	API_KEY = os.Getenv("DATAGOVSG_API_KEY")
@@ -71,5 +78,8 @@ func main() {
 	r.Handle("/graphql", serveGraphQL)
 	r.FileServer("/", http.Dir("static"))
 
-	http.ListenAndServe(fmt.Sprintf(":%v", PORT), r)
+	bind := fmt.Sprintf("%s:%s", IP, PORT)
+	log.Println("Starting server at", bind)
+
+	http.ListenAndServe(bind, r)
 }
