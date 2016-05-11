@@ -35,6 +35,13 @@ var pm25ReadingIntervalsObject *graphql.Object
 var pm25ReadingRegionsObject *graphql.Object
 var pm25ReadingObject *graphql.Object
 
+// PSI Readings
+var psiReadingsResultObject *graphql.Object
+var psiReadingsResultItemObject *graphql.Object
+var psiReadingIntervalsObject *graphql.Object
+var psiReadingRegionsObject *graphql.Object
+var psiReadingObject *graphql.Object
+
 func init() {
 
 	// Two Hour Weather Forecast
@@ -210,7 +217,6 @@ func init() {
 	})
 
 	// PM25 Readings
-
 	pm25ReadingObject = graphql.NewObject(graphql.ObjectConfig{
 		Name: "PM25Reading",
 		Fields: graphql.Fields{
@@ -272,6 +278,111 @@ func init() {
 			},
 			"items": &graphql.Field{
 				Type: graphql.NewNonNull(graphql.NewList(graphql.NewNonNull(pm25ReadingsResultItemObject))),
+			},
+		},
+	})
+
+	// PSI Readings
+	psiReadingObject = graphql.NewObject(graphql.ObjectConfig{
+		Name: "PSIReading",
+		Fields: graphql.Fields{
+			"value": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.Float),
+			},
+			"area": &graphql.Field{
+				Type: graphql.NewNonNull(common.AreaObject),
+			},
+		},
+	})
+	psiReadingRegionsObject = graphql.NewObject(graphql.ObjectConfig{
+		Name: "PSIReadingRegions",
+		Fields: graphql.Fields{
+			"national": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingObject),
+			},
+			"south": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingObject),
+			},
+			"north": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingObject),
+			},
+			"east": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingObject),
+			},
+			"central": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingObject),
+			},
+			"west": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingObject),
+			},
+		},
+	})
+	psiReadingIntervalsObject = graphql.NewObject(graphql.ObjectConfig{
+		Name: "PSIReadingIntervals",
+		Fields: graphql.Fields{
+			"psi_twenty_four_hourly": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingRegionsObject),
+			},
+			"pm10_twenty_four_hourly": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingRegionsObject),
+			},
+			"pm10_sub_index": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingRegionsObject),
+			},
+			"pm25_twenty_four_hourly": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingRegionsObject),
+			},
+			"psi_three_hourly": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingRegionsObject),
+			},
+			"o2_twenty_four_hourly": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingRegionsObject),
+			},
+			"o3_sub_index": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingRegionsObject),
+			},
+			"no2_one_hour_max": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingRegionsObject),
+			},
+			"so2_sub_index": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingRegionsObject),
+			},
+			"pm25_sub_index": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingRegionsObject),
+			},
+			"co_eight_hour_max": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingRegionsObject),
+			},
+			"co_sub_index": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingRegionsObject),
+			},
+			"o3_eight_hour_max": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingRegionsObject),
+			},
+		},
+	})
+	psiReadingsResultItemObject = graphql.NewObject(graphql.ObjectConfig{
+		Name: "PSIReadingsResultItem",
+		Fields: graphql.Fields{
+			"update_timestamp": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+			"timestamp": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+			"readings": &graphql.Field{
+				Type: graphql.NewNonNull(psiReadingIntervalsObject),
+			},
+		},
+	})
+	psiReadingsResultObject = graphql.NewObject(graphql.ObjectConfig{
+		Name: "PSIReadingsResult",
+		Fields: graphql.Fields{
+			"api_info": &graphql.Field{
+				Type: graphql.NewNonNull(common.APIInfoStatusObject),
+			},
+			"items": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.NewList(graphql.NewNonNull(psiReadingsResultItemObject))),
 			},
 		},
 	})
@@ -418,6 +529,41 @@ func init() {
 						return nil, res.Err
 					}
 					resp, _ := res.Body.(*datagovsg.PM25ReadingsResult)
+					return resp.ToGraphQL(), nil
+				},
+			},
+			"psi": &graphql.Field{
+				Name: "PSI Readings",
+				Type: graphql.NewNonNull(psiReadingsResultObject),
+				Args: graphql.FieldConfigArgument{
+					"date_time": &graphql.ArgumentConfig{
+						Type: common.DateTimeStringScalar,
+					},
+					"date": &graphql.ArgumentConfig{
+						Type: common.DateStringScalar,
+					},
+				},
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+
+					c := datagovsg.GetClientFromContext(p.Context)
+
+					dateTime, _ := p.Args["date_time"].(string)
+					date, _ := p.Args["date"].(string)
+
+					v, _ := query.Values(datagovsg.PSIReadingsOptions{
+						DateTime: dateTime,
+						Date:     date,
+					})
+
+					ch := c.Get(
+						fmt.Sprintf("https://api.data.gov.sg/v1/environment/psi?%v", v.Encode()),
+						&datagovsg.PSIReadingsResult{},
+					)
+					res := <-ch
+					if res.Err != nil {
+						return nil, res.Err
+					}
+					resp, _ := res.Body.(*datagovsg.PSIReadingsResult)
 					return resp.ToGraphQL(), nil
 				},
 			},

@@ -164,7 +164,7 @@ type PSIReadingRegions {
 
 type PSIReading {
   area: Area!
-  value: Int!
+  value: Float!
 }
 
 # UV-Index Readings
