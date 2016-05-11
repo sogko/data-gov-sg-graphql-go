@@ -1,0 +1,74 @@
+{
+  "items": [
+    {
+      "update_timestamp": "2016-05-09T11:51:15+08:00",
+      "timestamp": "2016-05-09T11:31:00+08:00",
+      "valid_period": {
+        "start": "2016-05-09T12:00:00+08:00",
+        "end": "2016-05-10T12:00:00+08:00"
+      },
+      "general": {
+        "forecast": "Thundery Showers",
+        "relative_humidity": {
+          "high": 95,
+          "low": 60
+        },
+        "temperature": {
+          "high": 34,
+          "low": 25
+        },
+        "wind": {
+          "speed": {
+            "high": 20,
+            "low": 5
+          },
+          "direction": "E"
+        }
+      },
+      "periods": [
+        {
+          "time": {
+            "start": "2016-05-09T12:00:00+08:00",
+            "end": "2016-05-09T18:00:00+08:00"
+          },
+          "regions": {
+            "south": "Thundery Showers",
+            "north": "Thundery Showers",
+            "east": "Thundery Showers",
+            "central": "Thundery Showers",
+            "west": "Thundery Showers"
+          }
+        },
+        {
+          "time": {
+            "start": "2016-05-09T18:00:00+08:00",
+            "end": "2016-05-10T06:00:00+08:00"
+          },
+          "regions": {
+            "south": "Partly Cloudy (Night)",
+            "north": "Partly Cloudy (Night)",
+            "east": "Partly Cloudy (Night)",
+            "central": "Partly Cloudy (Night)",
+            "west": "Partly Cloudy (Night)"
+          }
+        },
+        {
+          "time": {
+            "start": "2016-05-10T06:00:00+08:00",
+            "end": "2016-05-10T12:00:00+08:00"
+          },
+          "regions": {
+            "south": "Partly Cloudy (Day)",
+            "north": "Partly Cloudy (Day)",
+            "east": "Partly Cloudy (Day)",
+            "central": "Partly Cloudy (Day)",
+            "west": "Partly Cloudy (Day)"
+          }
+        }
+      ]
+    }
+  ],
+  "api_info": {
+    "status": "healthy"
+  }
+}

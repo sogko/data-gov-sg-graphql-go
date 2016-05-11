@@ -1,0 +1,93 @@
+{
+  "items": [
+    {
+      "update_timestamp": "2016-05-10T17:32:10+08:00",
+      "timestamp": "2016-05-10T17:06:00+08:00",
+      "forecasts": [
+        {
+          "timestamp": "2016-05-11T00:00:00+08:00",
+          "wind": {
+            "speed": {
+              "high": 15,
+              "low": 5
+            },
+            "direction": "VARIABLE"
+          },
+          "forecast": "Warm. Afternoon thundery showers.",
+          "relative_humidity": {
+            "high": 95,
+            "low": 55
+          },
+          "date": "2016-05-11",
+          "temperature": {
+            "high": 35,
+            "low": 25
+          }
+        },
+        {
+          "timestamp": "2016-05-12T00:00:00+08:00",
+          "wind": {
+            "speed": {
+              "high": 25,
+              "low": 10
+            },
+            "direction": "SE"
+          },
+          "forecast": "Warm. Afternoon thundery showers.",
+          "relative_humidity": {
+            "high": 95,
+            "low": 55
+          },
+          "date": "2016-05-12",
+          "temperature": {
+            "high": 35,
+            "low": 25
+          }
+        },
+        {
+          "timestamp": "2016-05-13T00:00:00+08:00",
+          "wind": {
+            "speed": {
+              "high": 20,
+              "low": 5
+            },
+            "direction": "SE"
+          },
+          "forecast": "Late morning and early afternoon thundery showers.",
+          "relative_humidity": {
+            "high": 95,
+            "low": 60
+          },
+          "date": "2016-05-13",
+          "temperature": {
+            "high": 34,
+            "low": 25
+          }
+        },
+        {
+          "timestamp": "2016-05-14T00:00:00+08:00",
+          "wind": {
+            "speed": {
+              "high": 20,
+              "low": 5
+            },
+            "direction": "SE"
+          },
+          "forecast": "Late morning and early afternoon thundery showers.",
+          "relative_humidity": {
+            "high": 95,
+            "low": 60
+          },
+          "date": "2016-05-14",
+          "temperature": {
+            "high": 34,
+            "low": 25
+          }
+        }
+      ]
+    }
+  ],
+  "api_info": {
+    "status": "healthy"
+  }
+}

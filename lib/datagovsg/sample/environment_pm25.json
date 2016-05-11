@@ -1,0 +1,57 @@
+{
+  "api_info": {
+    "status": "healthy"
+  },
+  "region_metadata": [
+    {
+      "name": "south",
+      "label_location": {
+        "longitude": 103.82,
+        "latitude": 1.29587
+      }
+    },
+    {
+      "name": "north",
+      "label_location": {
+        "longitude": 103.82,
+        "latitude": 1.41803
+      }
+    },
+    {
+      "name": "east",
+      "label_location": {
+        "longitude": 103.94,
+        "latitude": 1.35735
+      }
+    },
+    {
+      "name": "central",
+      "label_location": {
+        "longitude": 103.82,
+        "latitude": 1.35735
+      }
+    },
+    {
+      "name": "west",
+      "label_location": {
+        "longitude": 103.7,
+        "latitude": 1.35735
+      }
+    }
+  ],
+  "items": [
+    {
+      "update_timestamp": "2016-05-11T11:21:19+08:00",
+      "timestamp": "2016-05-11T11:00:00+08:00",
+      "readings": {
+        "pm25_one_hourly": {
+          "south": 6,
+          "north": 16,
+          "east": 13,
+          "central": 6,
+          "west": 12
+        }
+      }
+    }
+  ]
+}

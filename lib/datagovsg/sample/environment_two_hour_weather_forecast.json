@@ -1,0 +1,536 @@
+{
+  "api_info": {
+    "status": "healthy"
+  },
+  "area_metadata": [
+    {
+      "name": "Ang Mo Kio",
+      "label_location": {
+        "longitude": 103.839,
+        "latitude": 1.375
+      }
+    },
+    {
+      "name": "Bedok",
+      "label_location": {
+        "longitude": 103.924,
+        "latitude": 1.321
+      }
+    },
+    {
+      "name": "Bishan",
+      "label_location": {
+        "longitude": 103.839,
+        "latitude": 1.350772
+      }
+    },
+    {
+      "name": "Boon Lay",
+      "label_location": {
+        "longitude": 103.701,
+        "latitude": 1.304
+      }
+    },
+    {
+      "name": "Bukit Batok",
+      "label_location": {
+        "longitude": 103.754,
+        "latitude": 1.353
+      }
+    },
+    {
+      "name": "Bukit Merah",
+      "label_location": {
+        "longitude": 103.819,
+        "latitude": 1.277
+      }
+    },
+    {
+      "name": "Bukit Panjang",
+      "label_location": {
+        "longitude": 103.77195,
+        "latitude": 1.362
+      }
+    },
+    {
+      "name": "Bukit Timah",
+      "label_location": {
+        "longitude": 103.791,
+        "latitude": 1.325
+      }
+    },
+    {
+      "name": "Central Water Catchment",
+      "label_location": {
+        "longitude": 103.805,
+        "latitude": 1.38
+      }
+    },
+    {
+      "name": "Changi",
+      "label_location": {
+        "longitude": 103.987,
+        "latitude": 1.357
+      }
+    },
+    {
+      "name": "Choa Chu Kang",
+      "label_location": {
+        "longitude": 103.745,
+        "latitude": 1.377
+      }
+    },
+    {
+      "name": "Clementi",
+      "label_location": {
+        "longitude": 103.76,
+        "latitude": 1.315
+      }
+    },
+    {
+      "name": "City",
+      "label_location": {
+        "longitude": 103.844,
+        "latitude": 1.292
+      }
+    },
+    {
+      "name": "Geylang",
+      "label_location": {
+        "longitude": 103.884,
+        "latitude": 1.318
+      }
+    },
+    {
+      "name": "Hougang",
+      "label_location": {
+        "longitude": 103.886,
+        "latitude": 1.361218
+      }
+    },
+    {
+      "name": "Jalan Bahar",
+      "label_location": {
+        "longitude": 103.67,
+        "latitude": 1.347
+      }
+    },
+    {
+      "name": "Jurong East",
+      "label_location": {
+        "longitude": 103.737,
+        "latitude": 1.326
+      }
+    },
+    {
+      "name": "Jurong Island",
+      "label_location": {
+        "longitude": 103.699,
+        "latitude": 1.266
+      }
+    },
+    {
+      "name": "Jurong West",
+      "label_location": {
+        "longitude": 103.705,
+        "latitude": 1.34039
+      }
+    },
+    {
+      "name": "Kallang",
+      "label_location": {
+        "longitude": 103.862,
+        "latitude": 1.312
+      }
+    },
+    {
+      "name": "Lim Chu Kang",
+      "label_location": {
+        "longitude": 103.717332,
+        "latitude": 1.423
+      }
+    },
+    {
+      "name": "Mandai",
+      "label_location": {
+        "longitude": 103.812,
+        "latitude": 1.419
+      }
+    },
+    {
+      "name": "Marine Parade",
+      "label_location": {
+        "longitude": 103.891,
+        "latitude": 1.297
+      }
+    },
+    {
+      "name": "Novena",
+      "label_location": {
+        "longitude": 103.826,
+        "latitude": 1.327
+      }
+    },
+    {
+      "name": "Pasir Ris",
+      "label_location": {
+        "longitude": 103.948,
+        "latitude": 1.37
+      }
+    },
+    {
+      "name": "Paya Lebar",
+      "label_location": {
+        "longitude": 103.914,
+        "latitude": 1.358
+      }
+    },
+    {
+      "name": "Pioneer",
+      "label_location": {
+        "longitude": 103.675,
+        "latitude": 1.315
+      }
+    },
+    {
+      "name": "Pulau Tekong",
+      "label_location": {
+        "longitude": 104.053,
+        "latitude": 1.403
+      }
+    },
+    {
+      "name": "Pulau Ubin",
+      "label_location": {
+        "longitude": 103.96,
+        "latitude": 1.404
+      }
+    },
+    {
+      "name": "Punggol",
+      "label_location": {
+        "longitude": 103.904,
+        "latitude": 1.401
+      }
+    },
+    {
+      "name": "Queenstown",
+      "label_location": {
+        "longitude": 103.78576,
+        "latitude": 1.291
+      }
+    },
+    {
+      "name": "Seletar",
+      "label_location": {
+        "longitude": 103.869,
+        "latitude": 1.404
+      }
+    },
+    {
+      "name": "Sembawang",
+      "label_location": {
+        "longitude": 103.818495,
+        "latitude": 1.445
+      }
+    },
+    {
+      "name": "Sengkang",
+      "label_location": {
+        "longitude": 103.891443,
+        "latitude": 1.384
+      }
+    },
+    {
+      "name": "Sentosa",
+      "label_location": {
+        "longitude": 103.832,
+        "latitude": 1.243
+      }
+    },
+    {
+      "name": "Serangoon",
+      "label_location": {
+        "longitude": 103.865,
+        "latitude": 1.357
+      }
+    },
+    {
+      "name": "Southern Islands",
+      "label_location": {
+        "longitude": 103.842,
+        "latitude": 1.208
+      }
+    },
+    {
+      "name": "Sungei Kadut",
+      "label_location": {
+        "longitude": 103.756,
+        "latitude": 1.413
+      }
+    },
+    {
+      "name": "Tampines",
+      "label_location": {
+        "longitude": 103.944,
+        "latitude": 1.345
+      }
+    },
+    {
+      "name": "Tanglin",
+      "label_location": {
+        "longitude": 103.813,
+        "latitude": 1.308
+      }
+    },
+    {
+      "name": "Tengah",
+      "label_location": {
+        "longitude": 103.715,
+        "latitude": 1.374
+      }
+    },
+    {
+      "name": "Toa Payoh",
+      "label_location": {
+        "longitude": 103.856327,
+        "latitude": 1.334304
+      }
+    },
+    {
+      "name": "Tuas",
+      "label_location": {
+        "longitude": 103.635,
+        "latitude": 1.294947
+      }
+    },
+    {
+      "name": "Western Islands",
+      "label_location": {
+        "longitude": 103.746,
+        "latitude": 1.205926
+      }
+    },
+    {
+      "name": "Western Water Catchment",
+      "label_location": {
+        "longitude": 103.689,
+        "latitude": 1.405
+      }
+    },
+    {
+      "name": "Woodlands",
+      "label_location": {
+        "longitude": 103.786528,
+        "latitude": 1.432
+      }
+    },
+    {
+      "name": "Yishun",
+      "label_location": {
+        "longitude": 103.839,
+        "latitude": 1.418
+      }
+    }
+  ],
+  "items": [
+    {
+      "update_timestamp": "2016-05-07T23:36:18+08:00",
+      "timestamp": "2016-05-07T23:30:00+08:00",
+      "valid_period": {
+        "start": "2016-05-07T23:30:00+08:00",
+        "end": "2016-05-08T01:30:00+08:00"
+      },
+      "forecasts": [
+        {
+          "area": "Ang Mo Kio",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Bedok",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Bishan",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Boon Lay",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Bukit Batok",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Bukit Merah",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Bukit Panjang",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Bukit Timah",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Central Water Catchment",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Changi",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Choa Chu Kang",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Clementi",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "City",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Geylang",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Hougang",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Jalan Bahar",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Jurong East",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Jurong Island",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Jurong West",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Kallang",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Lim Chu Kang",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Mandai",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Marine Parade",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Novena",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Pasir Ris",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Paya Lebar",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Pioneer",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Pulau Tekong",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Pulau Ubin",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Punggol",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Queenstown",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Seletar",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Sembawang",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Sengkang",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Sentosa",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Serangoon",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Southern Islands",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Sungei Kadut",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Tampines",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Tanglin",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Tengah",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Toa Payoh",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Tuas",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Western Islands",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Western Water Catchment",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Woodlands",
+          "forecast": "Partly Cloudy (Night)"
+        },
+        {
+          "area": "Yishun",
+          "forecast": "Partly Cloudy (Night)"
+        }
+      ]
+    }
+  ]
+}
