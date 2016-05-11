@@ -23,6 +23,11 @@ var twentyFourHourWeatherForecastResultItemObject *graphql.Object
 var twentyFourHourWeatherForecastObject *graphql.Object
 var generalTwentyFourHourWeatherForecastObject *graphql.Object
 
+// Four Day Weather Forecast
+var fourDayWeatherForecastResultObject *graphql.Object
+var fourDayWeatherForecastResultItemObject *graphql.Object
+var fourDayWeatherForecastObject *graphql.Object
+
 func getHTTPClient(p graphql.ResolveParams) *datagovsg.Client {
 	if c, ok := p.Context.Value("client").(*datagovsg.Client); ok {
 		return c
@@ -155,6 +160,56 @@ func init() {
 		},
 	})
 
+	// Four Day Weather Forecast
+	fourDayWeatherForecastObject = graphql.NewObject(graphql.ObjectConfig{
+		Name: "FourDayWeatherForecast",
+		Fields: graphql.Fields{
+			"timestamp": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+			"wind": &graphql.Field{
+				Type: graphql.NewNonNull(common.WindObject),
+			},
+			"forecast": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+			"relative_humidity": &graphql.Field{
+				Type: graphql.NewNonNull(common.RelativeHumidityObject),
+			},
+			"date": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+			"temperature": &graphql.Field{
+				Type: graphql.NewNonNull(common.TemperatureObject),
+			},
+		},
+	})
+	fourDayWeatherForecastResultItemObject = graphql.NewObject(graphql.ObjectConfig{
+		Name: "FourDayWeatherForecastResultItem",
+		Fields: graphql.Fields{
+			"update_timestamp": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+			"timestamp": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+			"forecasts": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.NewList(graphql.NewNonNull(fourDayWeatherForecastObject))),
+			},
+		},
+	})
+	fourDayWeatherForecastResultObject = graphql.NewObject(graphql.ObjectConfig{
+		Name: "FourDayWeatherForecastResult",
+		Fields: graphql.Fields{
+			"api_info": &graphql.Field{
+				Type: graphql.NewNonNull(common.APIInfoStatusObject),
+			},
+			"items": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.NewList(graphql.NewNonNull(fourDayWeatherForecastResultItemObject))),
+			},
+		},
+	})
+
 	// Environment
 	EnvironmentObject = graphql.NewObject(graphql.ObjectConfig{
 		Name:        "Environment",
@@ -227,6 +282,41 @@ func init() {
 						return nil, res.Err
 					}
 					resp, _ := res.Body.(*datagovsg.TwentyFourHourWeatherForecastResponse)
+					return resp.ToGraphQL(), nil
+				},
+			},
+			"four_day_weather_forecast": &graphql.Field{
+				Name: "Four Day Weather Forecast",
+				Type: graphql.NewNonNull(fourDayWeatherForecastResultObject),
+				Args: graphql.FieldConfigArgument{
+					"date_time": &graphql.ArgumentConfig{
+						Type: common.DateTimeStringScalar,
+					},
+					"date": &graphql.ArgumentConfig{
+						Type: common.DateStringScalar,
+					},
+				},
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+
+					c := getHTTPClient(p)
+
+					dateTime, _ := p.Args["date_time"].(string)
+					date, _ := p.Args["date"].(string)
+
+					v, _ := query.Values(datagovsg.FourDayWeatherForecastOptions{
+						DateTime: dateTime,
+						Date:     date,
+					})
+
+					ch := c.Get(
+						fmt.Sprintf("https://api.data.gov.sg/v1/environment/4-day-weather-forecast?%v", v.Encode()),
+						&datagovsg.FourDayWeatherForecastResponse{},
+					)
+					res := <-ch
+					if res.Err != nil {
+						return nil, res.Err
+					}
+					resp, _ := res.Body.(*datagovsg.FourDayWeatherForecastResponse)
 					return resp.ToGraphQL(), nil
 				},
 			},
