@@ -1,0 +1,274 @@
+# includes GeoJSON from "https://github.com/sogko/graphql-schemas/blob/master/geojson/schema.txt"
+
+type RootQuery {
+	environment: Environment!
+	transport: Transport!
+
+	area(name: String!): Area
+	allArea: [Area!]!
+
+	region(name: String!): Area
+	allRegion: [Area!]!
+}
+
+# Environment
+
+type Environment {
+	two_hour_weather_forecast(date_time: DateTimeString, date: DateString): TwoHourWeatherForecastResult
+	twenty_four_hour_weather_forecast(date_time: DateTimeString, date: DateString): TwentyFourHourWeatherForecastResult
+	four_hour_weather_forecast(date_time: DateTimeString, date: DateString): FourDayFourDayWeatherForecastResult
+	pm25(date_time: DateTimeString, date: DateString): PM25ReadingsResult
+	psi(date_time: DateTimeString, date: DateString): PSIReadingsResult
+	uv_index(date_time: DateTimeString, date: DateString): UVIndexReadingsResult
+}
+
+# Transport
+
+type Transport {
+	taxi_availability(date_time: DateTimeString): TaxiAvailabilityResult!
+	traffic_image(date_time: DateTimeString): TrafficImagesResult!
+}
+
+# Two Hour Weather Forecast
+
+type TwoHourWeatherForecastResult {
+	api_info: APIInfoStatus!
+	items: [TwoHourWeatherForecastResultItem!]!
+}
+type TwoHourWeatherForecastResultItem {
+	update_timestamp: String!
+	timestamp: String!
+	valid_period: DateTimeRange!
+	forecasts: [TwoHourWeatherForecast!]!
+}
+
+type TwoHourWeatherForecast {
+	area: Area!
+	forecast: String!
+}
+
+# Twenty Four Hour Weather Forecast
+
+type TwentyFourHourWeatherForecastResult {
+	api_info: APIInfoStatus!
+	items: [TwentyFourHourWeatherForecastResultItem!]!
+}
+
+type TwentyFourHourWeatherForecastResultItem {
+	update_timestamp: String!
+	timestamp: String!
+	valid_period: DateTimeRange!
+	general: GeneralTwentyFourHourWeatherForecast!
+	periods: [TwentyFourHourWeatherForecast!]!
+}
+
+type TwentyFourHourWeatherForecast {
+	time: DateTimeRange!
+	regions: RegionWeatherForecast!
+}
+
+type GeneralTwentyFourHourWeatherForecast {
+	forecast: String!
+	relative_humidity: RelativeHumidity!
+	temperature: Temperature!
+	wind: Wind!
+}
+
+# Four Day Weather Forecast
+
+type FourDayWeatherForecastResult {
+	api_info: APIInfoStatus!
+	items: [FourDayWeatherForecastResultItem!]!
+}
+type FourDayWeatherForecastResultItem {
+	update_timestamp: String!
+	timestamp: String!
+	forecasts: [FourDayWeatherForecast!]!
+}
+
+type FourDayWeatherForecast {
+	timestamp: String!
+	wind: Wind!
+	forecast: String!
+	relative_humidity: RelativeHumidity!
+	date: String!
+	temperature: Temperature!
+}
+
+# PM25Readings
+
+type PM25ReadingsResult {
+	api_info: APIInfoStatus!
+	items: [PM25ReadingsResultItem!]!
+}
+
+type PM25ReadingsResultItem {
+	update_timestamp: String!
+	timestamp: String!
+	readings: PM25ReadingIntervals!
+}
+
+type PM25ReadingIntervals {
+	pm25_one_hourly: PM25ReadingRegions!
+}
+
+type PM25ReadingRegions {
+	south: PM25Reading!
+	north: PM25Reading!
+	east: PM25Reading!
+	central: PM25Reading!
+	west: PM25Reading!
+}
+
+type PM25Reading {
+	value: Int!
+	area: Area!
+}
+
+# PSI Readings
+
+type PSIReadingsResult {
+	api_info: APIInfoStatus!
+	items: [PSIReadingsResultItem!]!
+}
+type PSIReadingsResultItem {
+	update_timestamp: String!
+	timestamp: String!
+	readings: PSIReadingIntervals!
+}
+
+type PSIReadingIntervals {
+	psi_twenty_four_hourly: PSIReadingRegions!
+	pm10_twenty_four_hourly: PSIReadingRegions!
+	pm10_sub_index: PSIReadingRegions!
+	pm25_twenty_four_hourly: PSIReadingRegions!
+	psi_three_hourly: PSIReadingRegions!
+	o2_twenty_four_hourly: PSIReadingRegions!
+	o3_sub_index: PSIReadingRegions!
+	no2_one_hour_max: PSIReadingRegions!
+	so2_sub_index: PSIReadingRegions!
+	pm25_sub_index: PSIReadingRegions!
+	co_eight_hour_max: PSIReadingRegions!
+	co_sub_index: PSIReadingRegions!
+	o3_eight_hour_max: PSIReadingRegions!
+}
+
+type PSIReadingRegions {
+  national: PSIReading!
+  south: PSIReading!
+  north: PSIReading!
+  east: PSIReading!
+  central: PSIReading!
+  west: PSIReading!
+}
+
+type PSIReading {
+  area: Area!
+  value: Int!
+}
+
+# UV-Index Readings
+
+type UVIndexReadingsResult {
+	api_info: APIInfoStatus!
+	items: [UVIndexReadingsResultItem!]!
+}
+
+type UVIndexReadingsResultItem {
+	update_timestamp: String!
+	timestamp: String!
+	index: [UVIndexValue!]!
+}
+
+type UVIndexValue {
+	value: Int!
+	timestamp: String!
+}
+
+# Taxi Availability
+
+type TaxiAvailabilityResult {
+	taxi_count: Int!
+	api_info: APIInfoStatus!
+	timestamp: !String
+	result: GeoJSON
+}
+
+# Traffic Images
+
+type TrafficImagesResult {
+	api_info: APIInfoStatus!
+	items: [TrafficImagesResultItem!]!
+}
+
+type TrafficImagesResultItem
+	timestamp: String!
+	cameras: [TrafficImageCamera!]!
+}
+
+type TrafficImageCamera {
+	timestamp: String!
+	image: String!
+	location: Location!
+	camera_id: Int!
+	image_id: Int!
+	image_metadata: TrafficImageMetadata!
+}
+
+type TrafficImageMetadata {
+  height: Int!
+  width: Int!
+  md5: String!
+}
+
+# Others
+
+scalar DateTimeString
+scalar DateString
+
+type DateTimeRange {
+	start: String!
+	end: String!
+}
+
+type Location {
+	longitude: Float!
+	latitude: Float!
+}
+
+type Area {
+	name: String!
+	label_location: Location!
+}
+
+type Speed {
+	high: Int
+	low: Int
+}
+
+type RelativeHumidity {
+	high: Int
+	low: Int
+}
+
+type Temperature {
+	high: Int
+	low: Int
+}
+
+type Wind {
+	speed: Speed!
+	direction: String!
+}
+
+type RegionWeatherForecast {
+	south: String!
+	north: String!
+	east: String!
+	central: String!
+	west: String!
+}
+
+type APIInfoStatus {
+	status: String!
+}
