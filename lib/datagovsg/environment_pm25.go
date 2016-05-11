@@ -26,13 +26,13 @@ type PM25ReadingsResultItem struct {
 	Readings        PM25ReadingIntervals `json:"readings,omitempty"`
 }
 
-type PM25ReadingsResponse struct {
+type PM25ReadingsResult struct {
 	APIInfo        APIInfo                  `json:"api_info,omitempty"`
 	RegionMetadata []Area                   `json:"region_metadata,omitempty"`
 	Items          []PM25ReadingsResultItem `json:"items,omitempty"`
 }
 
-func (resp *PM25ReadingsResponse) AreaByName(name string) Area {
+func (resp *PM25ReadingsResult) AreaByName(name string) Area {
 	for _, area := range resp.RegionMetadata {
 		if area.Name == name {
 			return area
@@ -41,7 +41,7 @@ func (resp *PM25ReadingsResponse) AreaByName(name string) Area {
 	return Area{}
 }
 
-func (resp *PM25ReadingsResponse) ToGraphQL() interface{} {
+func (resp *PM25ReadingsResult) ToGraphQL() interface{} {
 
 	items := []PM25ReadingsResultItemGraphQL{}
 	for _, i := range resp.Items {
@@ -75,7 +75,7 @@ func (resp *PM25ReadingsResponse) ToGraphQL() interface{} {
 		}
 		items = append(items, item)
 	}
-	return PM25ReadingsResponseGraphQL{
+	return PM25ReadingsResultGraphQL{
 		APIInfo: resp.APIInfo,
 		Items:   items,
 	}
@@ -97,7 +97,7 @@ type PM25ReadingsResultItemGraphQL struct {
 	Readings        PM25ReadingIntervalsGraphQL `json:"readings,omitempty"`
 }
 
-type PM25ReadingsResponseGraphQL struct {
+type PM25ReadingsResultGraphQL struct {
 	APIInfo APIInfo                         `json:"api_info,omitempty"`
 	Items   []PM25ReadingsResultItemGraphQL `json:"items,omitempty"`
 }

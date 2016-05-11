@@ -14,17 +14,17 @@ type FourDayWeatherForecast struct {
 	Temperature      Temperature      `json:"temperature,omitempty"`
 }
 
-type FourDayWeatherForecastResult struct {
+type FourDayWeatherForecastResultItem struct {
 	UpdateTimestamp string                   `json:"update_timestamp,omitempty"`
 	Timestamp       string                   `json:"timestamp,omitempty"`
 	Forecasts       []FourDayWeatherForecast `json:"forecasts,omitempty"`
 }
 
-type FourDayWeatherForecastResponse struct {
-	APIInfo APIInfo                        `json:"api_info,omitempty"`
-	Items   []FourDayWeatherForecastResult `json:"items,omitempty"`
+type FourDayWeatherForecastResult struct {
+	APIInfo APIInfo                            `json:"api_info,omitempty"`
+	Items   []FourDayWeatherForecastResultItem `json:"items,omitempty"`
 }
 
-func (resp *FourDayWeatherForecastResponse) ToGraphQL() interface{} {
+func (resp *FourDayWeatherForecastResult) ToGraphQL() interface{} {
 	return resp
 }

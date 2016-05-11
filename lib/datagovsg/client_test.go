@@ -20,7 +20,7 @@ func init() {
 func TestSimple(t *testing.T) {
 	c := datagovsg.NewClient(API_KEY)
 
-	ch := c.Get(TEST_API_URL, &datagovsg.TwentyFourHourWeatherForecastResponse{})
+	ch := c.Get(TEST_API_URL, &datagovsg.TwentyFourHourWeatherForecastResult{})
 
 	res := <-ch
 	pretty.Println(res.Body)
@@ -32,10 +32,10 @@ func TestCached(t *testing.T) {
 	var ch chan datagovsg.ClientResult
 	var ch2 chan datagovsg.ClientResult
 
-	ch = c.Get(TEST_API_URL, &datagovsg.TwentyFourHourWeatherForecastResponse{})
+	ch = c.Get(TEST_API_URL, &datagovsg.TwentyFourHourWeatherForecastResult{})
 
 	go func() {
-		ch2 = c.Get(TEST_API_URL, &datagovsg.TwentyFourHourWeatherForecastResponse{})
+		ch2 = c.Get(TEST_API_URL, &datagovsg.TwentyFourHourWeatherForecastResult{})
 	}()
 
 	res := <-ch

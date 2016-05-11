@@ -17,7 +17,7 @@ type GeneralTwentyFourHourWeatherForecast struct {
 	Wind             Wind             `json:"wind,omitempty"`
 }
 
-type TwentyFourHourWeatherForecastResult struct {
+type TwentyFourHourWeatherForecastResultItem struct {
 	UpdateTimestamp string                               `json:"update_timestamp,omitempty"`
 	Timestamp       string                               `json:"timestamp,omitempty"`
 	ValidPeriod     DatetimeRange                        `json:"valid_period,omitempty"`
@@ -25,11 +25,11 @@ type TwentyFourHourWeatherForecastResult struct {
 	Periods         []TwentyFourHourWeatherForecast      `json:"periods,omitempty"`
 }
 
-type TwentyFourHourWeatherForecastResponse struct {
-	APIInfo APIInfo                               `json:"api_info,omitempty"`
-	Items   []TwentyFourHourWeatherForecastResult `json:"items,omitempty"`
+type TwentyFourHourWeatherForecastResult struct {
+	APIInfo APIInfo                                   `json:"api_info,omitempty"`
+	Items   []TwentyFourHourWeatherForecastResultItem `json:"items,omitempty"`
 }
 
-func (resp *TwentyFourHourWeatherForecastResponse) ToGraphQL() interface{} {
+func (resp *TwentyFourHourWeatherForecastResult) ToGraphQL() interface{} {
 	return resp
 }

@@ -306,13 +306,13 @@ func init() {
 
 					ch := c.Get(
 						fmt.Sprintf("https://api.data.gov.sg/v1/environment/2-hour-weather-forecast?%v", v.Encode()),
-						&datagovsg.TwoHourWeatherForecastResponse{},
+						&datagovsg.TwoHourWeatherForecastResult{},
 					)
 					res := <-ch
 					if res.Err != nil {
 						return nil, res.Err
 					}
-					resp, _ := res.Body.(*datagovsg.TwoHourWeatherForecastResponse)
+					resp, _ := res.Body.(*datagovsg.TwoHourWeatherForecastResult)
 					return resp.ToGraphQL(), nil
 				},
 			},
@@ -341,13 +341,13 @@ func init() {
 
 					ch := c.Get(
 						fmt.Sprintf("https://api.data.gov.sg/v1/environment/24-hour-weather-forecast?%v", v.Encode()),
-						&datagovsg.TwentyFourHourWeatherForecastResponse{},
+						&datagovsg.TwentyFourHourWeatherForecastResult{},
 					)
 					res := <-ch
 					if res.Err != nil {
 						return nil, res.Err
 					}
-					resp, _ := res.Body.(*datagovsg.TwentyFourHourWeatherForecastResponse)
+					resp, _ := res.Body.(*datagovsg.TwentyFourHourWeatherForecastResult)
 					return resp.ToGraphQL(), nil
 				},
 			},
@@ -376,13 +376,13 @@ func init() {
 
 					ch := c.Get(
 						fmt.Sprintf("https://api.data.gov.sg/v1/environment/4-day-weather-forecast?%v", v.Encode()),
-						&datagovsg.FourDayWeatherForecastResponse{},
+						&datagovsg.FourDayWeatherForecastResult{},
 					)
 					res := <-ch
 					if res.Err != nil {
 						return nil, res.Err
 					}
-					resp, _ := res.Body.(*datagovsg.FourDayWeatherForecastResponse)
+					resp, _ := res.Body.(*datagovsg.FourDayWeatherForecastResult)
 					return resp.ToGraphQL(), nil
 				},
 			},
@@ -411,13 +411,13 @@ func init() {
 
 					ch := c.Get(
 						fmt.Sprintf("https://api.data.gov.sg/v1/environment/pm25?%v", v.Encode()),
-						&datagovsg.PM25ReadingsResponse{},
+						&datagovsg.PM25ReadingsResult{},
 					)
 					res := <-ch
 					if res.Err != nil {
 						return nil, res.Err
 					}
-					resp, _ := res.Body.(*datagovsg.PM25ReadingsResponse)
+					resp, _ := res.Body.(*datagovsg.PM25ReadingsResult)
 					return resp.ToGraphQL(), nil
 				},
 			},

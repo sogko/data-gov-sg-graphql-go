@@ -10,20 +10,20 @@ type TwoHourWeatherForecast struct {
 	Forecast string `json:"forecast,omitempty"`
 }
 
-type TwoHourWeatherForecastResult struct {
+type TwoHourWeatherForecastResultItem struct {
 	UpdateTimestamp string                   `json:"update_timestamp,omitempty"`
 	Timestamp       string                   `json:"timestamp,omitempty"`
 	ValidPeriod     DatetimeRange            `json:"valid_period,omitempty"`
 	Forecasts       []TwoHourWeatherForecast `json:"forecasts,omitempty"`
 }
 
-type TwoHourWeatherForecastResponse struct {
-	APIInfo      APIInfo                        `json:"api_info,omitempty"`
-	AreaMetadata []Area                         `json:"area_metadata,omitempty"`
-	Items        []TwoHourWeatherForecastResult `json:"items,omitempty"`
+type TwoHourWeatherForecastResult struct {
+	APIInfo      APIInfo                            `json:"api_info,omitempty"`
+	AreaMetadata []Area                             `json:"area_metadata,omitempty"`
+	Items        []TwoHourWeatherForecastResultItem `json:"items,omitempty"`
 }
 
-func (resp *TwoHourWeatherForecastResponse) AreaByName(name string) Area {
+func (resp *TwoHourWeatherForecastResult) AreaByName(name string) Area {
 	for _, area := range resp.AreaMetadata {
 		if area.Name == name {
 			return area
@@ -32,7 +32,7 @@ func (resp *TwoHourWeatherForecastResponse) AreaByName(name string) Area {
 	return Area{}
 
 }
-func (resp *TwoHourWeatherForecastResponse) ToGraphQL() interface{} {
+func (resp *TwoHourWeatherForecastResult) ToGraphQL() interface{} {
 
 	items := []TwoHourWeatherForecastResultItemGraphQL{}
 	for _, item := range resp.Items {
