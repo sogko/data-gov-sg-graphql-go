@@ -1,5 +1,10 @@
 package datagovsg
 
+type FourDayWeatherForecastOptions struct {
+	DateTime string `json:"date_time,omitempy" url:"date_time,omitempy"`
+	Date     string `json:"date,omitempy" url:"date,omitempy"`
+}
+
 type FourDayWeatherForecast struct {
 	Timestamp        string           `json:"timestamp,omitempty"`
 	Wind             Wind             `json:"wind,omitempty"`

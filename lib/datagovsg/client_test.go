@@ -3,14 +3,16 @@ package datagovsg_test
 import (
 	"github.com/kr/pretty"
 	"github.com/sogko/data-gov-sg-graphql-go/lib/datagovsg"
-	"testing"
 	"os"
+	"testing"
 )
 
-var API_KEY = os.Getenv("DATAGOVSG_API_KEY")
+var API_KEY string
+
 const TEST_API_URL = "https://api.data.gov.sg/v1/environment/24-hour-weather-forecast"
 
 func init() {
+	API_KEY = os.Getenv("DATAGOVSG_API_KEY")
 	if API_KEY == "" {
 		panic("Set DATAGOVSG_API_KEY environment variable before running test")
 	}

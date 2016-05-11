@@ -2,6 +2,7 @@ package schema
 
 import (
 	"github.com/graphql-go/graphql"
+	"github.com/sogko/data-gov-sg-graphql-go/lib/schema/environment"
 )
 
 var Root graphql.Schema
@@ -9,12 +10,14 @@ var Root graphql.Schema
 func init() {
 
 	rootQuery := graphql.NewObject(graphql.ObjectConfig{
-		Name: "RootQuery",
+		Name:        "RootQuery",
+		Description: "Root queries for Data.gov.sg real-time APIs",
 		Fields: graphql.Fields{
-			"hello": &graphql.Field{
-				Type: graphql.String,
+			"environment": &graphql.Field{
+				Description: "Environment-related APIs",
+				Type:        environment.EnvironmentObject,
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-					return "world", nil
+					return map[string]interface{}{}, nil
 				},
 			},
 		},

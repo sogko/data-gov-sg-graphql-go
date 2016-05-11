@@ -1,5 +1,10 @@
 package datagovsg
 
+type TwentyFourHourWeatherForecastOptions struct {
+	DateTime string `json:"date_time,omitempy" url:"date_time,omitempy"`
+	Date     string `json:"date,omitempy" url:"date,omitempy"`
+}
+
 type TwentyFourHourWeatherForecast struct {
 	Time    DatetimeRange         `json:"time,omitempty"`
 	Regions RegionWeatherForecast `json:"regions,omitempty"`
