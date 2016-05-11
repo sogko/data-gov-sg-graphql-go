@@ -42,6 +42,11 @@ var psiReadingIntervalsObject *graphql.Object
 var psiReadingRegionsObject *graphql.Object
 var psiReadingObject *graphql.Object
 
+// UV-Index Readings
+var uvIndexReadingsResultObject *graphql.Object
+var uvIndexReadingsResultItemObject *graphql.Object
+var uvIndexReadingObject *graphql.Object
+
 func init() {
 
 	// Two Hour Weather Forecast
@@ -387,6 +392,44 @@ func init() {
 		},
 	})
 
+	// UV-Index Readings
+	uvIndexReadingObject = graphql.NewObject(graphql.ObjectConfig{
+		Name: "UVIndexReading",
+		Fields: graphql.Fields{
+			"value": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.Int),
+			},
+			"timestamp": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+		},
+	})
+	uvIndexReadingsResultItemObject = graphql.NewObject(graphql.ObjectConfig{
+		Name: "UVIndexReadingsResultItem",
+		Fields: graphql.Fields{
+			"update_timestamp": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+			"timestamp": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+			"index": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.NewList(graphql.NewNonNull(uvIndexReadingObject))),
+			},
+		},
+	})
+	uvIndexReadingsResultObject = graphql.NewObject(graphql.ObjectConfig{
+		Name: "UVIndexReadingsResult",
+		Fields: graphql.Fields{
+			"api_info": &graphql.Field{
+				Type: graphql.NewNonNull(common.APIInfoStatusObject),
+			},
+			"items": &graphql.Field{
+				Type: graphql.NewNonNull(graphql.NewList(graphql.NewNonNull(uvIndexReadingsResultItemObject))),
+			},
+		},
+	})
+
 	// Environment
 	EnvironmentObject = graphql.NewObject(graphql.ObjectConfig{
 		Name:        "Environment",
@@ -564,6 +607,41 @@ func init() {
 						return nil, res.Err
 					}
 					resp, _ := res.Body.(*datagovsg.PSIReadingsResult)
+					return resp.ToGraphQL(), nil
+				},
+			},
+			"uv_index": &graphql.Field{
+				Name: "PSI Readings",
+				Type: graphql.NewNonNull(uvIndexReadingsResultObject),
+				Args: graphql.FieldConfigArgument{
+					"date_time": &graphql.ArgumentConfig{
+						Type: common.DateTimeStringScalar,
+					},
+					"date": &graphql.ArgumentConfig{
+						Type: common.DateStringScalar,
+					},
+				},
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+
+					c := datagovsg.GetClientFromContext(p.Context)
+
+					dateTime, _ := p.Args["date_time"].(string)
+					date, _ := p.Args["date"].(string)
+
+					v, _ := query.Values(datagovsg.UVIndexOptions{
+						DateTime: dateTime,
+						Date:     date,
+					})
+
+					ch := c.Get(
+						fmt.Sprintf("https://api.data.gov.sg/v1/environment/uv-index?%v", v.Encode()),
+						&datagovsg.UVIndexReadingsResult{},
+					)
+					res := <-ch
+					if res.Err != nil {
+						return nil, res.Err
+					}
+					resp, _ := res.Body.(*datagovsg.UVIndexReadingsResult)
 					return resp.ToGraphQL(), nil
 				},
 			},

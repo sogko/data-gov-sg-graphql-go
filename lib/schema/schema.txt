@@ -177,10 +177,10 @@ type UVIndexReadingsResult {
 type UVIndexReadingsResultItem {
 	update_timestamp: String!
 	timestamp: String!
-	index: [UVIndexValue!]!
+	index: [UVIndexReading!]!
 }
 
-type UVIndexValue {
+type UVIndexReading {
 	value: Int!
 	timestamp: String!
 }
