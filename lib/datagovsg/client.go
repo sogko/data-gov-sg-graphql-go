@@ -41,15 +41,14 @@ func GetClientFromContext(ctx context.Context) *Client {
 func (c *Client) broadcastOnce(url string, result ClientResult) {
 	c.listenerLock.Lock()
 	listeners, _ := c.listeners[url]
+	c.listeners[url] = nil
+	delete(c.listeners, url)
+	c.listenerLock.Unlock()
+
 	for _, listener := range listeners {
 		listener <- result
 		close(listener)
 	}
-
-	c.listeners[url] = nil
-	delete(c.listeners, url)
-
-	c.listenerLock.Unlock()
 }
 
 func (c *Client) register(url string) (ch chan ClientResult, alreadyExists bool) {
