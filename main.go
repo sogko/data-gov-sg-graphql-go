@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/graphql-go/graphql"
 	"github.com/graphql-go/handler"
 	"github.com/pressly/chi"
@@ -15,7 +16,19 @@ import (
 var R *render.Render
 var API_KEY string
 
+var PORT string
+
 func init() {
+
+	// Determine which port to server app from
+	PORT := os.Getenv("OPENSHIFT_GO_PORT")
+	if PORT == "" {
+		PORT = os.Getenv("DATAGOVSG_PORT")
+	}
+	if PORT == "" {
+		PORT = "3000"
+	}
+
 	// Set data.gov.sg API key
 	API_KEY = os.Getenv("DATAGOVSG_API_KEY")
 	if API_KEY == "" {
@@ -55,5 +68,5 @@ func main() {
 	r.Handle("/graphql", serveGraphQL)
 	r.FileServer("/", http.Dir("static"))
 
-	http.ListenAndServe(":3000", r)
+	http.ListenAndServe(fmt.Sprintf(":%v", PORT), r)
 }
