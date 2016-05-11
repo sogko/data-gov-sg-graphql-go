@@ -11,6 +11,7 @@ import (
 	"golang.org/x/net/context"
 	"net/http"
 	"os"
+	"log"
 )
 
 var R *render.Render
@@ -28,12 +29,14 @@ func init() {
 	if PORT == "" {
 		PORT = "3000"
 	}
+	log.Println("PORT", PORT)
 
 	// Set data.gov.sg API key
 	API_KEY = os.Getenv("DATAGOVSG_API_KEY")
 	if API_KEY == "" {
 		panic("Set DATAGOVSG_API_KEY environment variable before running test")
 	}
+	log.Println("API key OK")
 
 	R = render.New(render.Options{
 		Directory:     "views",
