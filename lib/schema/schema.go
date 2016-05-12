@@ -3,6 +3,7 @@ package schema
 import (
 	"github.com/graphql-go/graphql"
 	"github.com/sogko/data-gov-sg-graphql-go/lib/schema/environment"
+	"github.com/sogko/data-gov-sg-graphql-go/lib/schema/transport"
 )
 
 var Root graphql.Schema
@@ -16,6 +17,13 @@ func init() {
 			"environment": &graphql.Field{
 				Description: "Environment-related APIs",
 				Type:        environment.EnvironmentObject,
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					return map[string]interface{}{}, nil
+				},
+			},
+			"transport": &graphql.Field{
+				Description: "Transport-related APIs",
+				Type:        transport.TransportObject,
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 					return map[string]interface{}{}, nil
 				},
