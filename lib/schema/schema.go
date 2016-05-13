@@ -23,7 +23,7 @@ func init() {
 			},
 			"transport": &graphql.Field{
 				Description: "Transport-related APIs",
-				Type:        transport.TransportObject,
+				Type:        transport.RootObject(),
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 					return map[string]interface{}{}, nil
 				},
