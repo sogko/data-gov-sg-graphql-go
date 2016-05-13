@@ -16,7 +16,7 @@ func init() {
 		Fields: graphql.Fields{
 			"environment": &graphql.Field{
 				Description: "Environment-related APIs",
-				Type:        environment.EnvironmentObject,
+				Type:        environment.RootObject(),
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 					return map[string]interface{}{}, nil
 				},
