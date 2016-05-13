@@ -18,6 +18,36 @@ func RootObject() *graphql.Object {
 		Name:        "Transport",
 		Description: "Transport-related APIs",
 		Fields: graphql.Fields{
+			"taxi_availability": &graphql.Field{
+				Name: "Taxi Availabillity",
+				Type: graphql.NewNonNull(taxiAvailabiltyResultObject),
+				Args: graphql.FieldConfigArgument{
+					"date_time": &graphql.ArgumentConfig{
+						Type: common.DateTimeStringScalar,
+					},
+				},
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+
+					c := datagovsg.GetClientFromContext(p.Context)
+
+					dateTime, _ := p.Args["date_time"].(string)
+
+					v, _ := query.Values(datagovsg.TaxiAvailabilityOptions{
+						DateTime: dateTime,
+					})
+
+					ch := c.Get(
+						fmt.Sprintf("https://api.data.gov.sg/v1/transport/taxi-availability?%v", v.Encode()),
+						&datagovsg.TaxiAvailabilityResult{},
+					)
+					res := <-ch
+					if res.Err != nil {
+						return nil, res.Err
+					}
+					resp, _ := res.Body.(*datagovsg.TaxiAvailabilityResult)
+					return resp.ToGraphQL(), nil
+				},
+			},
 			"traffic_images": &graphql.Field{
 				Name: "Traffic Images",
 				Type: graphql.NewNonNull(trafficImagesResultObject),
