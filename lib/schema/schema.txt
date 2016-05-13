@@ -191,7 +191,7 @@ type TaxiAvailabilityResult {
 	taxi_count: Int!
 	api_info: APIInfoStatus!
 	timestamp: !String
-	result: GeoJSON
+	result: GeoJSON!
 }
 
 # Traffic Images

@@ -18,5 +18,8 @@ var taxiAvailabiltyResultObject = graphql.NewObject(graphql.ObjectConfig{
 		"timestamp": &graphql.Field{
 			Type: graphql.NewNonNull(graphql.String),
 		},
+		"result": &graphql.Field{
+			Type: graphql.NewNonNull(geojson.GeoJSONInterface),
+		},
 	},
 })
