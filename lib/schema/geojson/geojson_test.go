@@ -163,29 +163,6 @@ func TestAll(t *testing.T) {
 	}
 	fragment Geometry on GeoJSONGeometryInterface {
 		type
-		... Point
-		... MultiPoint
-		... LineString
-		... MultiLineString
-		... Polygon
-		... MultiPolygon
-	}
-	fragment Point on GeoJSONPoint {
-		coordinates
-	}
-	fragment MultiPoint on GeoJSONMultiPoint {
-		coordinates
-	}
-	fragment LineString on GeoJSONLineString {
-		coordinates
-	}
-	fragment MultiLineString on GeoJSONMultiLineString {
-		coordinates
-	}
-	fragment Polygon on GeoJSONPolygon {
-		coordinates
-	}
-	fragment MultiPolygon on GeoJSONMultiPolygon {
 		coordinates
 	}
 	fragment Feature on GeoJSONFeature {
