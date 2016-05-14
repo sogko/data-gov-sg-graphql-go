@@ -22,14 +22,14 @@ var PORT string
 
 func init() {
 
-	// Determine which port to server app from
+	// Determine server IP
 	IP = os.Getenv("OPENSHIFT_GO_IP")
 	if PORT == "" {
 		PORT = os.Getenv("DATAGOVSG_IP")
 	}
 	log.Println("IP", IP)
 
-	// Determine which port to server app from
+	// Determine server PORT
 	PORT = os.Getenv("OPENSHIFT_GO_PORT")
 	if PORT == "" {
 		PORT = os.Getenv("DATAGOVSG_PORT")
@@ -38,7 +38,7 @@ func init() {
 		PORT = "3000"
 	}
 
-	// Set data.gov.sg API key
+	// Get data.gov.sg API key from env vars (required)
 	API_KEY = os.Getenv("DATAGOVSG_API_KEY")
 	if API_KEY == "" {
 		panic("Set DATAGOVSG_API_KEY environment variable before running server")
