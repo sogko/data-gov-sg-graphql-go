@@ -110,6 +110,7 @@
   }
 
   // Render <GraphiQL /> into the body.
+
   ReactDOM.render(
       React.createElement(GraphiQL, {
         fetcher: graphQLFetcher,
@@ -118,7 +119,40 @@
         operationName: parameters.operationName,
         onEditQuery: onEditQuery,
         onEditVariables: onEditVariables,
-        onEditOperationName: onEditOperationName
+        onEditOperationName: onEditOperationName,defaultQuery:
+        "# Welcome to GraphiQL\n" +
+        "#\n" +
+        "# GraphiQL is an in-browser IDE for writing, validating, and\n" +
+        "# testing GraphQL queries.\n" +
+        "#\n" +
+        "# Type queries into this side of the screen, and you will\n" +
+        "# see intelligent typeaheads aware of the current GraphQL type schema and\n" +
+        "# live syntax and validation errors highlighted within the text.\n" +
+        "#\n" +
+        "# To bring up the auto-complete at any point, just press Ctrl-Space.\n" +
+        "#\n" +
+        "# Press the run button above, or Cmd-Enter to execute the query, and the result\n" +
+        "# will appear in the pane to the right.\n\n" +
+        "{\n" +
+        "  environment {\n" +
+        "    # https://api.data.gov.sg/v1/environment/2-hour-weather-forecast\n" +
+        "    two_hour_weather_forecast {\n" +
+        "      items {\n" +
+        "        valid_period {\n" +
+        "          start\n" +
+        "          end\n" +
+        "        }\n" +
+        "        forecasts {\n" +
+        "          area {\n" +
+        "            name\n" +
+        "          }\n" +
+        "          forecast\n" +
+        "        }\n " +
+        "     }\n" +
+        "    }\n" +
+        "  }\n" +
+        "}"
+
       }),
       document.getElementById('graphiql')
   );
