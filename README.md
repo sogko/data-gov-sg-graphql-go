@@ -37,4 +37,6 @@ __Transport__
 - If you want to build/ is currently building / have already built something cool with this, let me know :)
 
 # License 
-MIT.
+Original API and retrieved dataset(s) are the property of [Singapore Government and its Statuory Boards.](https://developers.data.gov.sg/terms-use)
+
+Everything else: MIT
