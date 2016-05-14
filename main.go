@@ -41,7 +41,7 @@ func init() {
 	// Set data.gov.sg API key
 	API_KEY = os.Getenv("DATAGOVSG_API_KEY")
 	if API_KEY == "" {
-		panic("Set DATAGOVSG_API_KEY environment variable before running test")
+		panic("Set DATAGOVSG_API_KEY environment variable before running server")
 	}
 	log.Println("API key OK")
 
