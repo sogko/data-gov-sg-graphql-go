@@ -29,6 +29,7 @@ __Transport__
 - `graphql-go` based on an [experimental branch](https://github.com/sogko/graphql/tree/sogko/experiment-parallel-resolve) that resolves fields concurrently. (The OpenShift deployment uses vendoring to support it)
 - Written a quick HTTP client for `data.gov.sg` API that coalesces identical API requests into one single request. Yay go-routines and go-channels.
 - Implemented GeoJSON GraphQL schema defined here https://github.com/sogko/graphql-schemas/tree/master/geojson
+- The deployed GraphQL endpoint has a considerable latency due to the datacenter being in US-East region and the Data.gov.sg API being in Singapore.
 
 # TODO
 - [ ] Better documentation for GraphQL definitions
